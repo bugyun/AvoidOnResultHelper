@@ -1,5 +1,6 @@
 package vip.ruoyun.avoidonresult;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -9,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import java.util.Arrays;
 
 import vip.ruoyun.helper.avoid.AvoidOnResultHelper;
 
@@ -41,16 +44,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button mButtonPermission = findViewById(R.id.mButtonPermission);
+        mButtonPermission.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String[] permissions = {Manifest.permission.CAMERA};
+                AvoidOnResultHelper.requestPermissions(MainActivity.this, permissions, new AvoidOnResultHelper.PermissionsCallBack() {
+                    @Override
+                    public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
+                        Log.d("MainActivity", "permissions:" + Arrays.toString(permissions) + "  grantResults :" + Arrays.toString(grantResults));
+                    }
+                });
+            }
+        });
+
         FragmentManager fragmentManager = getSupportFragmentManager();
-//        Fragment oneFragment = fragmentManager.findFragmentByTag("OneFragment");
-//        if (oneFragment != null) {
-//
-//        } else {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         OneFragment fragment = new OneFragment();
         fragmentTransaction.replace(R.id.mFrameLayout, fragment, "OneFragment");
         fragmentTransaction.commit();
-//        }
     }
 
     private void test() {
