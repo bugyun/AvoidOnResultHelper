@@ -11,7 +11,7 @@ dependencies {
 }
 ```
 
-## 开启新界面
+## 开启 Activity
 
 ```java
 Intent intent = new Intent();

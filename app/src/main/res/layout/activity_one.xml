@@ -5,20 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".MainActivity">
+    tools:context=".OneActivity">
 
     <Button
         android:id="@+id/mButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="打开新界面" />
-
-
-    <fragment
-        android:id="@+id/mFragment"
-        android:name="vip.ruoyun.avoidonresult.OneFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:text="关闭界面" />
 
 </LinearLayout>

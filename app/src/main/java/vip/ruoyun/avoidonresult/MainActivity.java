@@ -3,7 +3,12 @@ package vip.ruoyun.avoidonresult;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 
 import vip.ruoyun.helper.avoid.AvoidOnResultHelper;
 
@@ -15,19 +20,32 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        Intent intent = new Intent();
-        AvoidOnResultHelper.startActivityForResult(this, intent, new AvoidOnResultHelper.ActivityCallback() {
+        Button mButton = findViewById(R.id.mButton);
+        mButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onActivityResult(int resultCode, Intent data) {
-                //新界面
-                //val intent = Intent()
-                //intent.putExtra("text",text.text.toString())
-                //setResult(Activity.RESULT_OK,intent)
-                //finish();
+            public void onClick(View v) {
+
+                Intent intent = new Intent(MainActivity.this, OneActivity.class);
+                AvoidOnResultHelper.startActivityForResult(MainActivity.this, intent, new AvoidOnResultHelper.ActivityCallback() {
+                    @Override
+                    public void onActivityResult(int resultCode, Intent data) {
+                        //新界面
+                        Log.d("MainActivity", "resultCode:" + resultCode);
+                        Log.d("MainActivity", "Intent data:" + data.getStringExtra("text"));
+                    }
+                });
 
             }
         });
+
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        OneFragment fragment = new OneFragment();
+        fragmentTransaction.replace(R.id.mFragment, fragment);
+        fragmentTransaction.commit();
+    }
+
+    private void test() {
         String[] permissions = {};
         AvoidOnResultHelper.requestPermissions(this, permissions, new AvoidOnResultHelper.PermissionsCallBack() {
             @Override
