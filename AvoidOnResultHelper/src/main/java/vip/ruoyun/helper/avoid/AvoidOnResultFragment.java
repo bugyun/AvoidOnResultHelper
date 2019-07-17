@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.SparseArray;
+
+import java.lang.ref.WeakReference;
 
 /**
  * Created by ruoyun on 2019-07-16.
@@ -16,9 +17,10 @@ import android.util.SparseArray;
  */
 public class AvoidOnResultFragment extends Fragment {
 
-    private static int mRequestCodeCounter = 66;
-    private SparseArray<AvoidOnResultHelper.ActivityCallback> mActivityCallbacks = new SparseArray<>();
-    private SparseArray<AvoidOnResultHelper.PermissionsCallBack> mPermissionsCallbacks = new SparseArray<>();
+    private static int mActivityCallbackCode = 108;
+    private static int mPermissionsCallBackCode = 208;
+    private WeakReference<AvoidOnResultHelper.ActivityCallback> mActivityCallback;
+    private WeakReference<AvoidOnResultHelper.PermissionsCallBack> mPermissionsCallback;
 
     public AvoidOnResultFragment() {
     }
@@ -31,17 +33,18 @@ public class AvoidOnResultFragment extends Fragment {
      * @param activityCallback
      */
     public void startActivityForResult(Intent intent, @Nullable Bundle options, AvoidOnResultHelper.ActivityCallback activityCallback) {
-        mRequestCodeCounter++;
-        mActivityCallbacks.append(mRequestCodeCounter, activityCallback);
-        startActivityForResult(intent, mRequestCodeCounter, options);
+        mActivityCallback = new WeakReference<>(activityCallback);
+        startActivityForResult(intent, mActivityCallbackCode, options);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        AvoidOnResultHelper.ActivityCallback activityCallback = mActivityCallbacks.get(requestCode);
-        if (activityCallback != null) {
-            activityCallback.onActivityResult(resultCode, data);
+        if (requestCode == mActivityCallbackCode) {
+            AvoidOnResultHelper.ActivityCallback activityCallback = mActivityCallback.get();
+            if (activityCallback != null) {
+                activityCallback.onActivityResult(resultCode, data);
+            }
         }
     }
 
@@ -52,24 +55,25 @@ public class AvoidOnResultFragment extends Fragment {
      * @param permissionsCallBack
      */
     public void requestPermissions(@NonNull String[] permissions, AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
-        mRequestCodeCounter++;
-        mPermissionsCallbacks.append(mRequestCodeCounter, permissionsCallBack);
-        requestPermissions(permissions, mRequestCodeCounter);
+        mPermissionsCallback = new WeakReference<>(permissionsCallBack);
+        requestPermissions(permissions, mPermissionsCallBackCode);
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        AvoidOnResultHelper.PermissionsCallBack permissionsCallBack = mPermissionsCallbacks.get(requestCode);
-        if (permissionsCallBack != null) {
-            permissionsCallBack.onRequestPermissionsResult(permissions, grantResults);
+        if (requestCode == mPermissionsCallBackCode) {
+            AvoidOnResultHelper.PermissionsCallBack permissionsCallBack = mPermissionsCallback.get();
+            if (permissionsCallBack != null) {
+                permissionsCallBack.onRequestPermissionsResult(permissions, grantResults);
+            }
         }
     }
 
     @Override
     public void onDestroy() {
-        mActivityCallbacks = null;
-        mPermissionsCallbacks = null;
+        mActivityCallback = null;
+        mPermissionsCallback = null;
         super.onDestroy();
     }
 }

@@ -14,9 +14,8 @@
         android:text="打开新界面" />
 
 
-    <fragment
-        android:id="@+id/mFragment"
-        android:name="vip.ruoyun.avoidonresult.OneFragment"
+    <FrameLayout
+        android:id="@+id/mFrameLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
