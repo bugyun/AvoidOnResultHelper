@@ -15,7 +15,7 @@ dependencies {
 
 ```java
 Intent intent = new Intent();
-AvoidOnResultManager.startActivityForResult(this, intent, new AvoidOnResultManager.ActivityCallback() {
+AvoidOnResultHelper.startActivityForResult(this, intent, new AvoidOnResultHelper.ActivityCallback() {
     @Override
     public void onActivityResult(int resultCode, Intent data) {
         //新界面
@@ -32,7 +32,7 @@ AvoidOnResultManager.startActivityForResult(this, intent, new AvoidOnResultManag
 
 ```java
 String[] permissions = {};
-AvoidOnResultManager.requestPermissions(this, permissions, new AvoidOnResultManager.PermissionsCallBack() {
+AvoidOnResultHelper.requestPermissions(this, permissions, new AvoidOnResultHelper.PermissionsCallBack() {
     @Override
     public void onRequestPermissionsResult(@NonNull String[] permissions, @NonNull int[] grantResults) {
 
