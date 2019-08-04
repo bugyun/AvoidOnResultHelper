@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.util.SparseArray;
 
 /**
@@ -16,7 +17,7 @@ import android.util.SparseArray;
  */
 public class AvoidOnResultFragment extends Fragment {
 
-    private static int mRequestCodeCounter = 66;
+    private static int mRequestCodeCounter = AvoidOnResultHelper.getRequestCodeStart();
     private SparseArray<AvoidOnResultHelper.ActivityCallback> mActivityCallbacks = new SparseArray<>();
     private SparseArray<AvoidOnResultHelper.PermissionsCallBack> mPermissionsCallbacks = new SparseArray<>();
 
@@ -31,6 +32,7 @@ public class AvoidOnResultFragment extends Fragment {
      * @param activityCallback
      */
     public void startActivityForResult(Intent intent, @Nullable Bundle options, AvoidOnResultHelper.ActivityCallback activityCallback) {
+        checkRequestCodeCounter();
         mRequestCodeCounter++;
         mActivityCallbacks.append(mRequestCodeCounter, activityCallback);
         startActivityForResult(intent, mRequestCodeCounter, options);
@@ -53,6 +55,7 @@ public class AvoidOnResultFragment extends Fragment {
      * @param permissionsCallBack
      */
     public void requestPermissions(@NonNull String[] permissions, AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
+        checkRequestCodeCounter();
         mRequestCodeCounter++;
         mPermissionsCallbacks.append(mRequestCodeCounter, permissionsCallBack);
         requestPermissions(permissions, mRequestCodeCounter);
@@ -73,5 +76,12 @@ public class AvoidOnResultFragment extends Fragment {
         mActivityCallbacks = null;
         mPermissionsCallbacks = null;
         super.onDestroy();
+    }
+
+    private void checkRequestCodeCounter() {
+        Log.e("zyh", "code:" + mRequestCodeCounter);
+        if (mRequestCodeCounter >= AvoidOnResultHelper.getRequestCodeEnd()) {
+            mRequestCodeCounter = AvoidOnResultHelper.getRequestCodeStart();
+        }
     }
 }

@@ -15,7 +15,30 @@ import android.support.v4.app.FragmentManager;
 public class AvoidOnResultHelper {
     private static final String TAG = "RYAvoidOnResultHelper";
 
+    //默认值
+    private static int mRequestCodeStart = 65000;
+    private static int mRequestCodeEnd = 65535;
+
     private AvoidOnResultHelper() {
+    }
+
+    /**
+     * 设置 requestCode 的使用范围
+     *
+     * @param start 默认 65000
+     * @param end   默认 65535
+     */
+    public static void setRequestCodeRange(int start, int end) {
+        mRequestCodeStart = start;
+        mRequestCodeEnd = end;
+    }
+
+    static int getRequestCodeStart() {
+        return mRequestCodeStart;
+    }
+
+    static int getRequestCodeEnd() {
+        return mRequestCodeEnd;
     }
 
     private static AvoidOnResultFragment getAvoidOnResultFragment(FragmentActivity activity) {
