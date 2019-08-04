@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.util.SparseArray;
 
 /**
@@ -17,11 +16,21 @@ import android.util.SparseArray;
  */
 public class AvoidOnResultFragment extends Fragment {
 
-    private static int mRequestCodeCounter = AvoidOnResultHelper.getRequestCodeStart();
+    //默认值
+    private static int mRequestCodeStart = 65000;
+    private static int mRequestCodeEnd = 65535;
+
+    private static int mRequestCodeCounter = mRequestCodeStart;
     private SparseArray<AvoidOnResultHelper.ActivityCallback> mActivityCallbacks = new SparseArray<>();
     private SparseArray<AvoidOnResultHelper.PermissionsCallBack> mPermissionsCallbacks = new SparseArray<>();
 
     public AvoidOnResultFragment() {
+    }
+
+    static void setRequestCodeRange(int start, int end) {
+        mRequestCodeStart = start;
+        mRequestCodeEnd = end;
+        mRequestCodeCounter = start;
     }
 
     /**
@@ -79,9 +88,8 @@ public class AvoidOnResultFragment extends Fragment {
     }
 
     private void checkRequestCodeCounter() {
-        Log.e("zyh", "code:" + mRequestCodeCounter);
-        if (mRequestCodeCounter >= AvoidOnResultHelper.getRequestCodeEnd()) {
-            mRequestCodeCounter = AvoidOnResultHelper.getRequestCodeStart();
+        if (mRequestCodeCounter >= mRequestCodeEnd) {
+            mRequestCodeCounter = mRequestCodeStart;
         }
     }
 }

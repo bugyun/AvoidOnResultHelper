@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AvoidOnResultHelper.setRequestCodeRange(100, 200);
+        AvoidOnResultHelper.setRequestCodeRange(200, 200);
 
 
         Button mButton = findViewById(R.id.mButton);
