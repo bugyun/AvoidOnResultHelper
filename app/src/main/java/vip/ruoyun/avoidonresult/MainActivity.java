@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AvoidOnResultHelper.setRequestCodeRange(200, 200);
+
 
         Button mButton = findViewById(R.id.mButton);
         mButton.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
                 Intent intent = new Intent(MainActivity.this, OneActivity.class);
                 AvoidOnResultHelper.startActivityForResult(MainActivity.this, intent, activityCallback);
-
             }
         });
 

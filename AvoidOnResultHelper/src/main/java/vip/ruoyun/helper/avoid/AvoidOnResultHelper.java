@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 
 /**
  * Created by ruoyun on 2019-07-16.
@@ -15,7 +16,22 @@ import android.support.v4.app.FragmentManager;
 public class AvoidOnResultHelper {
     private static final String TAG = "RYAvoidOnResultHelper";
 
+
     private AvoidOnResultHelper() {
+    }
+
+    /**
+     * 设置 requestCode 的使用范围
+     *
+     * @param start 默认 65000
+     * @param end   默认 65535
+     */
+    public static void setRequestCodeRange(int start, int end) {
+        if (start >= end) {
+            Log.e(TAG, "start(" + start + ") must less than end(" + end + ") , Now use the default values !");
+            return;
+        }
+        AvoidOnResultFragment.setRequestCodeRange(start, end);
     }
 
     private static AvoidOnResultFragment getAvoidOnResultFragment(FragmentActivity activity) {

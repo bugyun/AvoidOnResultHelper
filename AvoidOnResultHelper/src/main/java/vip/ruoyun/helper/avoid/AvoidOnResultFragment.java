@@ -16,11 +16,21 @@ import android.util.SparseArray;
  */
 public class AvoidOnResultFragment extends Fragment {
 
-    private static int mRequestCodeCounter = 66;
+    //默认值
+    private static int mRequestCodeStart = 65000;
+    private static int mRequestCodeEnd = 65535;
+
+    private static int mRequestCodeCounter = mRequestCodeStart;
     private SparseArray<AvoidOnResultHelper.ActivityCallback> mActivityCallbacks = new SparseArray<>();
     private SparseArray<AvoidOnResultHelper.PermissionsCallBack> mPermissionsCallbacks = new SparseArray<>();
 
     public AvoidOnResultFragment() {
+    }
+
+    static void setRequestCodeRange(int start, int end) {
+        mRequestCodeStart = start;
+        mRequestCodeEnd = end;
+        mRequestCodeCounter = start;
     }
 
     /**
@@ -31,6 +41,7 @@ public class AvoidOnResultFragment extends Fragment {
      * @param activityCallback
      */
     public void startActivityForResult(Intent intent, @Nullable Bundle options, AvoidOnResultHelper.ActivityCallback activityCallback) {
+        checkRequestCodeCounter();
         mRequestCodeCounter++;
         mActivityCallbacks.append(mRequestCodeCounter, activityCallback);
         startActivityForResult(intent, mRequestCodeCounter, options);
@@ -53,6 +64,7 @@ public class AvoidOnResultFragment extends Fragment {
      * @param permissionsCallBack
      */
     public void requestPermissions(@NonNull String[] permissions, AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
+        checkRequestCodeCounter();
         mRequestCodeCounter++;
         mPermissionsCallbacks.append(mRequestCodeCounter, permissionsCallBack);
         requestPermissions(permissions, mRequestCodeCounter);
@@ -73,5 +85,11 @@ public class AvoidOnResultFragment extends Fragment {
         mActivityCallbacks = null;
         mPermissionsCallbacks = null;
         super.onDestroy();
+    }
+
+    private void checkRequestCodeCounter() {
+        if (mRequestCodeCounter >= mRequestCodeEnd) {
+            mRequestCodeCounter = mRequestCodeStart;
+        }
     }
 }

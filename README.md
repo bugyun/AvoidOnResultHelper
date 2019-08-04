@@ -7,7 +7,7 @@
 
 ```java
 dependencies {
-    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.0'
+    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.1'
 }
 ```
 
@@ -40,6 +40,16 @@ AvoidOnResultHelper.requestPermissions(this, permissions, new AvoidOnResultHelpe
 });
 ```
 
+## 设置 RequestCodeRange 范围
+如果在使用的过程中,发现 RequestCode 和原有的值发生冲突,那么可以通过下面的方法,进行设置
+默认值为:
+
+- start:65000
+- end:65535
+
+```java
+AvoidOnResultHelper.setRequestCodeRange(65000, 65535);
+```
 
 ## 原理
 
