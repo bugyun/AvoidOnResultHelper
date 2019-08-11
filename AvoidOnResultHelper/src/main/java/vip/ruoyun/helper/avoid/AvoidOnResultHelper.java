@@ -83,4 +83,27 @@ public class AvoidOnResultHelper {
     }
 
 
+    /**
+     * 生命周期,非粘性,注册的时候不调用回调函数
+     */
+    public static void addLifecycleListener(@NonNull FragmentActivity activity, @NonNull LifecycleListener listener) {
+        addLifecycleListener(activity, listener, false);
+    }
+
+    /**
+     * 粘性,注册的时候调用回调函数
+     *
+     * @param activity
+     * @param listener
+     */
+    public static void addLifecycleListener(@NonNull FragmentActivity activity, @NonNull LifecycleListener listener, boolean isSticky) {
+        AvoidOnResultFragment avoidOnResultFragment = getAvoidOnResultFragment(activity);
+        avoidOnResultFragment.addLifecycleListener(listener, isSticky);
+    }
+
+
+    public static void removeLifecycleListener(@NonNull FragmentActivity activity, @NonNull LifecycleListener listener) {
+        AvoidOnResultFragment avoidOnResultFragment = getAvoidOnResultFragment(activity);
+        avoidOnResultFragment.removeLifecycleListener(listener);
+    }
 }
