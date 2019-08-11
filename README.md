@@ -7,7 +7,7 @@
 
 ```java
 dependencies {
-    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.2'
+    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.3'
 }
 ```
 
