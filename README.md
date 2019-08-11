@@ -7,7 +7,7 @@
 
 ```java
 dependencies {
-    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.1'
+    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.3'
 }
 ```
 
@@ -49,6 +49,41 @@ AvoidOnResultHelper.requestPermissions(this, permissions, new AvoidOnResultHelpe
 
 ```java
 AvoidOnResultHelper.setRequestCodeRange(65000, 65535);
+```
+
+## 生命周期
+监听当前 activity 的生命周期.
+```java
+public interface LifecycleListener {
+
+    void onStart();//开始
+
+    void onStop();//结束
+
+    void onDestroy();//销毁
+}
+```
+LifecycleListenerWrapper 是此接口的空实现.
+
+使用
+```java
+//添加监听事件
+LifecycleListener lifecycleListener = new LifecycleListener.LifecycleListenerWrapper() {
+    @Override
+    public void onStart() {
+    }
+};
+//添加监听事件
+AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener);
+
+//粘性通知,当第一次添加的时候,就执行相应的回调方法
+AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener, true);
+```
+
+可选操作
+```java
+//移除监听事件,默认可以不用移除lifecycleListener,除非在当前界面存在时候,想要不让某些类监听,那么可以手动进行移除(removeLifecycleListener)
+AvoidOnResultHelper.removeLifecycleListener(this, lifecycleListener);
 ```
 
 ## 原理

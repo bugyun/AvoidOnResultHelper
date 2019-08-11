@@ -12,7 +12,7 @@ publish {
     userOrg = 'bugyun'        //bintray.com用户名
     groupId = 'vip.ruoyun.helper'    //jcenter group
     artifactId = 'avoid-onresult-helper'   //项目名称 name
-    publishVersion = '1.0.1'//版本号 version
+    publishVersion = '1.0.3'//版本号 version
     desc = 'Android 避免 onActivityResult 和 onRequestPermissionsResult 烦恼requestCode的问题，帮助快速开发~~'//描述
     website = 'https://github.com/bugyun/AvoidOnResultHelper' // github 网址
 }
