@@ -8,13 +8,7 @@ package vip.ruoyun.helper.avoid;
  */
 public interface LifecycleListener {
 
-    void onCreate();
-
     void onStart();
-
-    void onResume();
-
-    void onPause();
 
     void onStop();
 
@@ -23,22 +17,7 @@ public interface LifecycleListener {
     class LifecycleListenerWrapper implements LifecycleListener {
 
         @Override
-        public void onCreate() {
-
-        }
-
-        @Override
         public void onStart() {
-
-        }
-
-        @Override
-        public void onResume() {
-
-        }
-
-        @Override
-        public void onPause() {
 
         }
 

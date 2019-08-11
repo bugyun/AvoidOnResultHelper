@@ -22,12 +22,9 @@ public class AvoidOnResultFragment extends Fragment {
 
     //生命周期状态
     public static final int INITIALIZING = 0;     // Not yet created.
-    public static final int CREATED = 1;          // Created.
     public static final int STOPPED = 3;          // Fully created, not started.
     public static final int STARTED = 4;          // Created and started, not resumed.
-    public static final int RESUMED = 5;          // Created started and resumed.
     public static final int DESTROYED = 6;
-    public static final int PAUSED = 7;
 
     private int mState = INITIALIZING;
 
@@ -79,7 +76,7 @@ public class AvoidOnResultFragment extends Fragment {
      * @param permissions
      * @param permissionsCallBack
      */
-    public void requestPermissions(@NonNull String[] permissions,@NonNull AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
+    public void requestPermissions(@NonNull String[] permissions, @NonNull AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
         checkRequestCodeCounter();
         mRequestCodeCounter++;
         mPermissionsCallbacks.append(mRequestCodeCounter, permissionsCallBack);
@@ -103,17 +100,8 @@ public class AvoidOnResultFragment extends Fragment {
         lifecycleListeners.add(listener);
         if (isSticky) {
             switch (mState) {
-                case CREATED:
-                    listener.onCreate();
-                    break;
                 case STARTED:
                     listener.onStart();
-                    break;
-                case RESUMED:
-                    listener.onResume();
-                    break;
-                case PAUSED:
-                    listener.onPause();
                     break;
                 case STOPPED:
                     listener.onStop();
@@ -135,38 +123,11 @@ public class AvoidOnResultFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mState = CREATED;
-        for (LifecycleListener lifecycleListener : lifecycleListeners) {
-            lifecycleListener.onCreate();
-        }
-    }
-
-    @Override
     public void onStart() {
         super.onStart();
         mState = STARTED;
         for (LifecycleListener lifecycleListener : lifecycleListeners) {
             lifecycleListener.onStart();
-        }
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        mState = RESUMED;
-        for (LifecycleListener lifecycleListener : lifecycleListeners) {
-            lifecycleListener.onResume();
-        }
-    }
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        mState = PAUSED;
-        for (LifecycleListener lifecycleListener : lifecycleListeners) {
-            lifecycleListener.onPause();
         }
     }
 

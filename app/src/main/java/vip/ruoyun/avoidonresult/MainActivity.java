@@ -67,18 +67,29 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.mFrameLayout, fragment, "OneFragment");
         fragmentTransaction.commit();
 
-        LifecycleListener lifecycleListener = new LifecycleListener.LifecycleListenerWrapper() {
+        LifecycleListener lifecycleListener = new LifecycleListener() {
+
+
             @Override
             public void onStart() {
             }
 
+
+
             @Override
-            public void onPause() {
+            public void onStop() {
+
+            }
+
+            @Override
+            public void onDestroy() {
+
             }
         };
 
 
         AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener);
+        AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener, true);
         AvoidOnResultHelper.removeLifecycleListener(this, lifecycleListener);
     }
 

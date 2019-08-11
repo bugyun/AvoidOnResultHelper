@@ -30,6 +30,6 @@ dependencies {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     implementation project(path: ':AvoidOnResultHelper')
-//    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.1'
+//    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.2'
 
 }
