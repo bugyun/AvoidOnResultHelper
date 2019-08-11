@@ -8,10 +8,19 @@ package vip.ruoyun.helper.avoid;
  */
 public interface LifecycleListener {
 
+    /**
+     * 开始
+     */
     void onStart();
 
+    /**
+     * 结束
+     */
     void onStop();
 
+    /**
+     * 销毁
+     */
     void onDestroy();
 
     class LifecycleListenerWrapper implements LifecycleListener {
