@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        AvoidOnResultHelper.setRequestCodeRange(200, 200);
+        AvoidOnResultHelper.setRequestCodeRange(65535, 200);
 
 
         Button mButton = findViewById(R.id.mButton);
@@ -67,8 +67,7 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.mFrameLayout, fragment, "OneFragment");
         fragmentTransaction.commit();
 
-
-        AvoidOnResultHelper.addLifecycleListener(this, new LifecycleListener.LifecycleListenerWrapper() {
+        LifecycleListener lifecycleListener = new LifecycleListener.LifecycleListenerWrapper() {
             @Override
             public void onStart() {
             }
@@ -76,7 +75,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onPause() {
             }
-        });
+        };
+
+
+        AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener);
+        AvoidOnResultHelper.removeLifecycleListener(this, lifecycleListener);
     }
 
     private void test() {

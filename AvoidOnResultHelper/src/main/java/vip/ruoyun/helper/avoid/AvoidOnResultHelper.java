@@ -2,6 +2,7 @@ package vip.ruoyun.helper.avoid;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IntRange;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -26,7 +27,7 @@ public class AvoidOnResultHelper {
      * @param start 默认 65000
      * @param end   默认 65535
      */
-    public static void setRequestCodeRange(int start, int end) {
+    public static void setRequestCodeRange(@IntRange(from = 0, to = 65535) int start, @IntRange(from = 0, to = 65535) int end) {
         if (start >= end) {
             Log.e(TAG, "start(" + start + ") must less than end(" + end + ") , Now use the default values !");
             return;
@@ -53,11 +54,11 @@ public class AvoidOnResultHelper {
      * @param intent
      * @param callback
      */
-    public static void startActivityForResult(FragmentActivity activity, Intent intent, ActivityCallback callback) {
+    public static void startActivityForResult(@NonNull FragmentActivity activity, @NonNull Intent intent, @NonNull ActivityCallback callback) {
         startActivityForResult(activity, intent, null, callback);
     }
 
-    public static void startActivityForResult(FragmentActivity activity, Intent intent, Bundle options, ActivityCallback callback) {
+    public static void startActivityForResult(@NonNull FragmentActivity activity, @NonNull Intent intent, Bundle options, @NonNull ActivityCallback callback) {
         AvoidOnResultFragment avoidOnResultFragment = getAvoidOnResultFragment(activity);
         avoidOnResultFragment.startActivityForResult(intent, options, callback);
     }
@@ -73,7 +74,7 @@ public class AvoidOnResultHelper {
      * @param permissions
      * @param permissionsCallBack
      */
-    public static void requestPermissions(FragmentActivity activity, String[] permissions, PermissionsCallBack permissionsCallBack) {
+    public static void requestPermissions(@NonNull FragmentActivity activity, @NonNull String[] permissions, @NonNull PermissionsCallBack permissionsCallBack) {
         AvoidOnResultFragment avoidOnResultFragment = getAvoidOnResultFragment(activity);
         avoidOnResultFragment.requestPermissions(permissions, permissionsCallBack);
     }

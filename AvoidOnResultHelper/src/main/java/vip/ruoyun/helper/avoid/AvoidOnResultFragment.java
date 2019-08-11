@@ -79,7 +79,7 @@ public class AvoidOnResultFragment extends Fragment {
      * @param permissions
      * @param permissionsCallBack
      */
-    public void requestPermissions(@NonNull String[] permissions, AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
+    public void requestPermissions(@NonNull String[] permissions,@NonNull AvoidOnResultHelper.PermissionsCallBack permissionsCallBack) {
         checkRequestCodeCounter();
         mRequestCodeCounter++;
         mPermissionsCallbacks.append(mRequestCodeCounter, permissionsCallBack);
@@ -186,6 +186,7 @@ public class AvoidOnResultFragment extends Fragment {
         for (LifecycleListener lifecycleListener : lifecycleListeners) {
             lifecycleListener.onDestroy();
         }
+        lifecycleListeners.clear();
         lifecycleListeners = null;
         mActivityCallbacks = null;
         mPermissionsCallbacks = null;

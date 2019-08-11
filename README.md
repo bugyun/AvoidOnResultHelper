@@ -51,6 +51,48 @@ AvoidOnResultHelper.requestPermissions(this, permissions, new AvoidOnResultHelpe
 AvoidOnResultHelper.setRequestCodeRange(65000, 65535);
 ```
 
+## 生命周期
+监听当前 activity 的生命周期,同 fragment 的生命周期.
+```java
+public interface LifecycleListener {
+
+    void onCreate();
+
+    void onStart();
+
+    void onResume();
+
+    void onPause();
+
+    void onStop();
+
+    void onDestroy();
+}
+```
+LifecycleListenerWrapper 是此接口的空实现.
+
+使用
+```java
+//添加监听事件
+LifecycleListener lifecycleListener = new LifecycleListener.LifecycleListenerWrapper() {
+    @Override
+    public void onStart() {
+    }
+
+    @Override
+    public void onPause() {
+    }
+};
+//添加监听事件
+AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener);
+```
+
+可选操作
+```java
+//移除监听事件,默认可以不用移除lifecycleListener,除非在当前界面存在时候,想要不让某些类监听,那么可以手动进行移除(removeLifecycleListener)
+AvoidOnResultHelper.removeLifecycleListener(this, lifecycleListener);
+```
+
 ## 原理
 
 ### 问题
