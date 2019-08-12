@@ -4,8 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+
+import vip.ruoyun.helper.avoid.AvoidOnResultHelper;
+import vip.ruoyun.helper.avoid.LifecycleListener;
 
 public class OneActivity extends AppCompatActivity {
 
@@ -24,6 +28,33 @@ public class OneActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        LifecycleListener lifecycleListener = new LifecycleListener() {
+
+
+            @Override
+            public void onStart() {
+                Log.e("OneActivity", "onStart");
+
+            }
+
+
+            @Override
+            public void onStop() {
+                Log.e("OneActivity", "onStop");
+
+            }
+
+            @Override
+            public void onDestroy() {
+                Log.e("OneActivity", "onDestroy");
+            }
+        };
+
+
+//        AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener);
+        AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener, true);
+//        AvoidOnResultHelper.removeLifecycleListener(this, lifecycleListener);
     }
 
 

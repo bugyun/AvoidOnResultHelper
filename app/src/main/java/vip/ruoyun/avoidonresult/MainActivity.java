@@ -14,7 +14,6 @@ import android.widget.Button;
 import java.util.Arrays;
 
 import vip.ruoyun.helper.avoid.AvoidOnResultHelper;
-import vip.ruoyun.helper.avoid.LifecycleListener;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -66,31 +65,6 @@ public class MainActivity extends AppCompatActivity {
         OneFragment fragment = new OneFragment();
         fragmentTransaction.replace(R.id.mFrameLayout, fragment, "OneFragment");
         fragmentTransaction.commit();
-
-        LifecycleListener lifecycleListener = new LifecycleListener() {
-
-
-            @Override
-            public void onStart() {
-            }
-
-
-
-            @Override
-            public void onStop() {
-
-            }
-
-            @Override
-            public void onDestroy() {
-
-            }
-        };
-
-
-        AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener);
-        AvoidOnResultHelper.addLifecycleListener(this, lifecycleListener, true);
-        AvoidOnResultHelper.removeLifecycleListener(this, lifecycleListener);
     }
 
     private void test() {
