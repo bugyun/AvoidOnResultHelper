@@ -1,6 +1,9 @@
 # AvoidOnResultHelper
 避免 onActivityResult 和 onRequestPermissionsResult 烦恼requestCode的问题，帮助快速开发~~
 
+## 原理讲解
+
+[原理讲解，点我！](https://ruoyun.vip/post/%E5%A4%A7%E8%83%B8%E5%BC%9F-requestcode%E8%BF%98%E5%9C%A8%E5%9B%B0%E6%89%B0%E4%BD%A0%E5%98%9B/)
 
 ## 使用方法
 在子项目中的 build.gradle 文件中添加
