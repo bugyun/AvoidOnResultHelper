@@ -24,10 +24,13 @@ public class OneActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.putExtra("text", "返回数据");
-                setResult(Activity.RESULT_OK, intent);
-                finish();
+//                setResult(Activity.RESULT_OK, intent);
+//                finish();
+                AvoidOnResultHelper.finishWithResult(OneActivity.this, Activity.RESULT_OK, intent);
+//                AvoidOnResultHelper.finishWithResult(OneActivity.this, Activity.RESULT_OK, intent.getBundleExtra(""));
             }
         });
+
 
         LifecycleListener lifecycleListener = new LifecycleListener() {
 
