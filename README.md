@@ -10,7 +10,7 @@
 
 ```java
 dependencies {
-    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.3'
+    implementation 'vip.ruoyun.helper:avoid-onresult-helper:1.0.4'
 }
 ```
 
@@ -21,14 +21,24 @@ Intent intent = new Intent();
 AvoidOnResultHelper.startActivityForResult(this, intent, new AvoidOnResultHelper.ActivityCallback() {
     @Override
     public void onActivityResult(int resultCode, Intent data) {
-        //新界面
-        //val intent = Intent()
-        //intent.putExtra("text",text.text.toString())
-        //setResult(Activity.RESULT_OK,intent)
-        //finish();
-
+        //接收数据
+        //Log.d("MainActivity", "resultCode:" + resultCode);
+        //Log.d("MainActivity", "Intent data:" + data.getStringExtra("text"));
     }
 });
+```
+
+## 关闭 Activity，并回传值
+
+在新的Activity中，通过下面的方法来快速关闭界面并传回值。
+```java
+AvoidOnResultHelper.finishWithResult(activity, Activity.RESULT_OK, intent);
+AvoidOnResultHelper.finishWithResult(activity, Activity.RESULT_OK, bundle);
+//相当于
+//Intent intent = new Intent();
+//intent.putExtra("text", "返回数据");
+//setResult(Activity.RESULT_OK, intent);
+//finish();
 ```
 
 ## 请求权限

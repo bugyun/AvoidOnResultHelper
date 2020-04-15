@@ -63,6 +63,18 @@ public class AvoidOnResultHelper {
         avoidOnResultFragment.startActivityForResult(intent, options, callback);
     }
 
+    public static void finishWithResult(FragmentActivity activity, int resultCode, Intent intent) {
+        activity.setResult(resultCode, intent);
+        activity.finish();
+    }
+
+    public static void finishWithResult(FragmentActivity activity, int resultCode, Bundle bundle) {
+        Intent intent = new Intent();
+        intent.putExtras(bundle);
+        activity.setResult(resultCode, intent);
+        activity.finish();
+    }
+
     public interface ActivityCallback {
         void onActivityResult(int resultCode, Intent data);
     }
